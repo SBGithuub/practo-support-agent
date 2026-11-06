@@ -6,6 +6,32 @@ Allows non-technical users and evaluators to easily run, test, and interact with
 import os
 import sys
 import argparse
+import subprocess
+
+# Auto-re-route if invoked by default Python 3.14 (or wrong python without uvicorn/crewai)
+if sys.version_info >= (3, 13) or sys.version_info < (3, 10):
+    py312_candidates = [
+        r"C:\Python312\python.exe",
+        os.path.expanduser(r"~\AppData\Local\Programs\Python\Python312\python.exe")
+    ]
+    py312_exe = None
+    for cand in py312_candidates:
+        if os.path.exists(cand):
+            py312_exe = cand
+            break
+            
+    if not py312_exe:
+        try:
+            check = subprocess.run(["py", "-3.12", "-c", "import sys; print(sys.executable)"], capture_output=True, text=True)
+            if check.returncode == 0 and check.stdout.strip():
+                py312_exe = check.stdout.strip()
+        except Exception:
+            pass
+            
+    if py312_exe:
+        # Re-invoke script under Python 3.12 environment where packages are installed
+        cmd = [py312_exe, os.path.abspath(__file__)] + sys.argv[1:]
+        sys.exit(subprocess.call(cmd))
 
 # Set project environment defaults
 os.environ["CREWAI_DISABLE_TELEMETRY"] = "true"
@@ -141,3 +167,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
