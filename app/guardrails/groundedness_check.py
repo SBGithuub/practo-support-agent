@@ -25,3 +25,4 @@ def check_groundedness(draft_answer: str, retrieved_context: str, similarity_sco
         return False, FALLBACK_MESSAGE
         
     return True, draft_answer
+

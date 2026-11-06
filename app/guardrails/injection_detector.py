@@ -34,3 +34,4 @@ def detect_prompt_injection(text: str) -> tuple[bool, str]:
             return True, f"Security Violation: Potential prompt injection or system override detected matching pattern '{pattern.pattern}'."
             
     return False, ""
+

@@ -52,3 +52,4 @@ def log_request_event(
         f.write(json.dumps(event) + "\n")
         
     return event
+

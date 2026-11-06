@@ -25,3 +25,4 @@ def mask_pii(text: str) -> tuple[str, bool]:
 def contains_unmasked_pii(text: str) -> bool:
     """Checks if text contains an unmasked phone number."""
     return bool(PHONE_REGEX.search(text))
+

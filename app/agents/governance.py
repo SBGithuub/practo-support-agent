@@ -90,3 +90,4 @@ def verify_least_autonomy_enforcement(agents: Dict[str, Any]) -> bool:
         raise LeastAutonomyViolationError(f"Security Violation: Response Composer has excessive tool autonomy: {composer_tool_names}.")
         
     return True
+

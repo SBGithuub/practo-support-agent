@@ -110,3 +110,4 @@ def generate_grounded_response(
         _RESPONSE_CACHE[norm_key] = response_data.copy()
         
     return response_data
+

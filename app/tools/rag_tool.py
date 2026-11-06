@@ -18,3 +18,4 @@ def rag_policy_lookup(query: str) -> str:
         
     sources = ", ".join(result["sources"]) if result["sources"] else "General Policy"
     return f"Retrieved Context from {sources}: {result['answer']}"
+

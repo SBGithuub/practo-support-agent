@@ -41,3 +41,4 @@ def test_fresh_session_isolation():
     
     history = get_session_history(fresh_id)
     assert len(history.messages) == 2
+

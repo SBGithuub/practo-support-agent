@@ -76,3 +76,4 @@ class ConversationalSessionManager:
         history.add_ai_message(response)
         
         return response
+

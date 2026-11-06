@@ -365,3 +365,4 @@ You can access the interactive Swagger documentation at `http://localhost:8000/d
 ## Conclusion
 
 This capstone brings together every core building block of enterprise AI systems: from deterministic dataset generation and calibrated dual-collection vector search, to multi-agent crew orchestration, stateful conversational memory, tri-layer guardrails, multi-agent review stages, AI risk governance, and observable FastAPI deployment. Everything runs completely locally and deterministically under `MOCK_LLM` mode with zero external API dependencies.
+

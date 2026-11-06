@@ -72,3 +72,4 @@ def test_rag_evaluation_metrics():
     assert 0.0 <= metrics["recall"] <= 1.0
     assert 0.0 <= metrics["f1"] <= 1.0
     assert metrics["recall"] == 1.0
+

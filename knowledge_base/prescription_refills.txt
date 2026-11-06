@@ -1,1 +1,2 @@
 Routine maintenance prescription refills for chronic ailments can be requested digitally via the patient account history without an immediate in-person visit. The treating physician reviews and authorizes repeat medication orders within twenty-four hours of submission. Prescriptions for Schedule X narcotics, controlled psychotropic substances, or acute antibiotics require a mandatory in-person physical re-evaluation. Authorized refill slips are automatically synced to registered doorstep pharmacies for prompt medicine dispatch.
+

@@ -51,3 +51,4 @@ def test_crew_pipeline_lookup_query():
     assert "Cardiology" in res.category
     assert res.sources == ["APT-0007"]
     assert res.action_required is True
+

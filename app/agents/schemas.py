@@ -25,3 +25,4 @@ class ReviewVerdict(BaseModel):
     approved: bool = Field(description="True if the draft response is fully compliant and grounded; False if revised.")
     final_answer: str = Field(description="The finalized, verified patient response (unchanged if approved, edited if revised).")
     reason: str = Field(description="Explanation of the review verdict or details of revisions made.")
+

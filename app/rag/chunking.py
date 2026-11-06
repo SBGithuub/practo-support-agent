@@ -81,3 +81,4 @@ def load_and_chunk_all(kb_dir: Path) -> tuple[List[Dict[str, Any]], List[Dict[st
         sentence_chunks.extend(get_sentence_chunks(text, doc_name))
         
     return fixed_chunks, sentence_chunks
+

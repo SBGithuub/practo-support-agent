@@ -45,3 +45,4 @@ def test_schema_fields():
 def test_dataset_reproducibility():
     fresh_draw = generate_appointments(SEED, 50)
     assert fresh_draw == APPOINTMENTS
+

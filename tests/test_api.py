@@ -83,3 +83,4 @@ def test_structured_log_pii_redaction():
         lines = f.readlines()
         last_line = json.loads(lines[-1])
         assert "[REDACTED_PHONE]" in last_line["query"]
+

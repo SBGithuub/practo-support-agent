@@ -102,3 +102,4 @@ Fixed-Size Chunking     : Precision = 46.67%, Recall = 100.00%, F1 = 0.6364
 
 Recommendation:
 I recommend deploying the Sentence-Based Chunking strategy for production Practo support. Sentence-based chunking achieved higher retrieval precision (56.67% vs 46.67%) while maintaining perfect 100% document recall (100.00%). Because healthcare clinic policies are structured as discrete atomic rules (such as cancellation windows or fee schedules), sentence boundaries cleanly encapsulate single policy provisions without pulling in overlapping text from neighboring clauses.
+

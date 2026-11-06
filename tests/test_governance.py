@@ -81,3 +81,4 @@ def test_response_cache_hit_and_normalization():
     stats = get_cache_stats()
     assert stats["hits"] >= 1
     assert stats["misses"] >= 1
+
