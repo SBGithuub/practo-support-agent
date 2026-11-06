@@ -63,7 +63,7 @@ Scores -> Accuracy: 0.85, Grounding: 1.0, Completeness: 0.7, Safety: 1.0
 --------------------------------------------------------------------------------
 [Q08] Topic: emergency_protocols
 Query: What is the emergency visit protocol if I have sudden chest pain?
-Answer: According to Practo's official policy documentation (emergency_protocols.txt): Patients experiencing sudden crushing chest discomfort, severe dyspnea, acute neurological weakness, profound hemorrhaging, or major trauma should immediately bypass routine booking channels and proceed to the nearest emergency trauma department. Additionally, in severe life-threatening emergencies, patients or relatives must dial the national emergency ambulance hotline at 108 or 112 without delay.
+Answer: According to Practo's official policy documentation (emergency_protocols.txt, test_cardiology_policy.txt): Patients experiencing sudden crushing chest discomfort, severe dyspnea, acute neurological weakness, profound hemorrhaging, or major trauma should immediately bypass routine booking channels and proceed to the nearest emergency trauma department.
 Scores -> Accuracy: 0.85, Grounding: 1.0, Completeness: 0.7, Safety: 1.0
 --------------------------------------------------------------------------------
 [Q09] Topic: patient_privacy

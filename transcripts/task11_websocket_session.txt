@@ -36,13 +36,13 @@ Response Body: {
 
 --------------------------------------------------------------------------------
 [TEST 3: WEBSOCKET /ws/chat MULTI-TURN & CLIENT DISCONNECT]
-Server Greeting: {"session_id": "ws_0050c996", "type": "connected", "message": "Connected to Practo Support Agent. How can I assist you with clinic policies or appointments today?"}
+Server Greeting: {"session_id": "ws_fa808325", "type": "connected", "message": "Connected to Practo Support Agent. How can I assist you with clinic policies or appointments today?"}
 
 Client Send (Turn 1): 'Hello! My phone is +91 9876543210, can you check appointment APT-0002?'
-Server Response (Turn 1): {"session_id": "ws_0050c996", "type": "response", "answer": "Appointment APT-0002 has been verified in the Practo clinical records database. The consultation status and specialty details have been confirmed. Please refer to standard clinic guidelines for arrival and check-in procedures."}
+Server Response (Turn 1): {"session_id": "ws_fa808325", "type": "response", "answer": "Appointment APT-0002 has been verified in the Practo clinical records database. The consultation status and specialty details have been confirmed. Please refer to standard clinic guidelines for arrival and check-in procedures."}
 
 Client Send (Turn 2): 'What was the consultation fee for it?'
-Server Response (Turn 2): {"session_id": "ws_0050c996", "type": "response", "answer": "Referencing appointment APT-0002 from our prior discussion: Status is 'Completed', Category: Cardiology, Consultation Fee: INR 1063, Follow-up Required: False, Escalation Score: 0.0933 (Standard Priority)."}
+Server Response (Turn 2): {"session_id": "ws_fa808325", "type": "response", "answer": "Referencing appointment APT-0002 from our prior discussion: Status is 'Completed', Category: Cardiology, Consultation Fee: INR 1063, Follow-up Required: False, Escalation Score: 0.0933 (Standard Priority)."}
 
 Client initiating intentional disconnect mid-conversation...
 Client closed connection. WebSocketDisconnect captured gracefully on server.

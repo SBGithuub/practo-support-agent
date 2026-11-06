@@ -10,7 +10,7 @@ Cache Design:
 [TRIAL 1: COLD QUERY EXECUTION (CACHE MISS)]
 Input Query: 'What is the cancellation and rescheduling window for appointments?'
 Normalized Key: 'what is the cancellation and rescheduling window for appointments'
-Execution Latency: 444.95 ms
+Execution Latency: 404.29 ms
 Cache Hit Flag: False
 Cache Stats After Trial 1: {'hits': 0, 'misses': 1, 'total_calls': 1}
 
@@ -27,7 +27,7 @@ Cache Stats After Trial 2: {'hits': 1, 'misses': 1, 'total_calls': 2}
 
 [TRIAL 3: SECOND DISTINCT QUERY - COLD CALL]
 Input Query: 'How do cashless insurance claims work for outpatient visits?'
-Execution Latency: 12.93 ms (Cache Hit: False)
+Execution Latency: 13.09 ms (Cache Hit: False)
 Repeated Execution Latency: 0.02 ms (Cache Hit: True)
 
 ================================================================================
@@ -35,7 +35,7 @@ CACHE PERFORMANCE BENCHMARK SUMMARY:
   - Total Pipeline Calls: 4
   - Total Cache Hits: 2
   - Total Cache Misses: 2
-  - Cold Call Latency (Trial 1): 444.95 ms
+  - Cold Call Latency (Trial 1): 404.29 ms
   - Warm Cache Hit Latency (Trial 2): 0.01 ms
-  - Measured Latency Reduction: 41976.4x speedup
+  - Measured Latency Reduction: 40837.7x speedup
 ================================================================================
