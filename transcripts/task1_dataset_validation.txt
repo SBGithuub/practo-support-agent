@@ -1,0 +1,29 @@
+=============================================
+PRACTO APPOINTMENT DATASET VALIDATION REPORT
+=============================================
+Total Records Generated: 50
+Seed Used: 42
+Consultation Fee Range: INR 500 to INR 2500
+Reasoning: Reflects realistic OPD specialist charges in metropolitan Indian private clinics.
+
+Category Breakdown (Requirement: each >= 3):
+  - General Medicine  : 10 records
+  - Cardiology        : 10 records
+  - Dermatology       : 10 records
+  - Pediatrics        : 10 records
+  - Orthopedics       : 10 records
+
+Status Breakdown (Requirement: each >= 1):
+  - Scheduled         : 10 records
+  - Completed         : 10 records
+  - Cancelled         : 10 records
+  - No-Show           : 10 records
+  - Rescheduled       : 10 records
+
+Follow-up Required Rate (Requirement: 10% - 30%):
+  - Total Requiring Follow-up: 14 / 50
+  - Follow-up Percentage: 28.00%
+
+All structural dataset checks PASSED successfully.
+=============================================
+Dataset exported to: data\appointments.csv and data\appointments.json

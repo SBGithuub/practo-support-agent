@@ -1,0 +1,51 @@
+record_id,category,status,consultation_fee_inr,days_since_created,follow_up_required
+APT-0001,General Medicine,Scheduled,1809,3,True
+APT-0002,Cardiology,Completed,1063,7,False
+APT-0003,Dermatology,Cancelled,2008,3,False
+APT-0004,Pediatrics,No-Show,2327,17,True
+APT-0005,Orthopedics,Rescheduled,1364,1,True
+APT-0006,General Medicine,Scheduled,947,7,False
+APT-0007,Cardiology,Completed,554,17,True
+APT-0008,Dermatology,Cancelled,1830,22,False
+APT-0009,Pediatrics,No-Show,951,14,False
+APT-0010,Orthopedics,Rescheduled,2157,27,True
+APT-0011,General Medicine,Scheduled,2150,5,False
+APT-0012,Cardiology,Completed,1196,8,True
+APT-0013,Dermatology,Cancelled,2460,24,False
+APT-0014,Pediatrics,No-Show,689,12,True
+APT-0015,Orthopedics,Rescheduled,2235,11,False
+APT-0016,General Medicine,Scheduled,2152,1,False
+APT-0017,Cardiology,Completed,1598,3,False
+APT-0018,Dermatology,Cancelled,1275,2,False
+APT-0019,Pediatrics,No-Show,2198,20,False
+APT-0020,Orthopedics,Rescheduled,2264,11,False
+APT-0021,General Medicine,Scheduled,1942,2,True
+APT-0022,Cardiology,Completed,966,24,False
+APT-0023,Dermatology,Cancelled,663,27,False
+APT-0024,Pediatrics,No-Show,706,12,False
+APT-0025,Orthopedics,Rescheduled,1801,26,False
+APT-0026,General Medicine,Scheduled,1258,11,True
+APT-0027,Cardiology,Completed,1046,22,False
+APT-0028,Dermatology,Cancelled,1827,2,False
+APT-0029,Pediatrics,No-Show,850,17,False
+APT-0030,Orthopedics,Rescheduled,834,14,False
+APT-0031,General Medicine,Scheduled,2395,20,False
+APT-0032,Cardiology,Completed,949,21,False
+APT-0033,Dermatology,Cancelled,2073,24,True
+APT-0034,Pediatrics,No-Show,2183,1,False
+APT-0035,Orthopedics,Rescheduled,1321,8,True
+APT-0036,General Medicine,Scheduled,2370,30,False
+APT-0037,Cardiology,Completed,1970,10,True
+APT-0038,Dermatology,Cancelled,1522,12,False
+APT-0039,Pediatrics,No-Show,1816,14,True
+APT-0040,Orthopedics,Rescheduled,785,7,False
+APT-0041,General Medicine,Scheduled,1603,8,False
+APT-0042,Cardiology,Completed,1377,28,False
+APT-0043,Dermatology,Cancelled,1241,7,False
+APT-0044,Pediatrics,No-Show,783,16,False
+APT-0045,Orthopedics,Rescheduled,2047,1,False
+APT-0046,General Medicine,Scheduled,813,20,True
+APT-0047,Cardiology,Completed,1893,13,False
+APT-0048,Dermatology,Cancelled,1288,12,False
+APT-0049,Pediatrics,No-Show,1458,16,False
+APT-0050,Orthopedics,Rescheduled,1633,27,False

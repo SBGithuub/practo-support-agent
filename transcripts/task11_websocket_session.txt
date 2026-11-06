@@ -1,0 +1,54 @@
+================================================================================
+TASK 11: FASTAPI DEPLOYMENT (HTTP + WEBSOCKET MULTI-TURN CHAT)
+================================================================================
+Endpoints Demonstrated:
+  1. POST /ask (Pydantic query model -> Pydantic SupportResponse)
+  2. POST /add-document (Dynamic document indexing into ChromaDB)
+  3. WS /ws/chat (Real-time multi-turn chat with WebSocketDisconnect handling)
+--------------------------------------------------------------------------------
+
+[TEST 1: HTTP POST /ask]
+Request: {"query": "What is the cancellation window for appointments?", "session_id": "test_api_session_1"}
+HTTP Status: 200
+Response Body: {
+  "query": "What is the cancellation window for appointments?",
+  "category": "Clinic Policy",
+  "answer": "Practo clinics operate under standard transparent healthcare policies. Cancellations up to two hours prior are penalty-free, and follow-up visits within seven days receive courtesy discounts. For emergencies, patients should immediately contact emergency hospital triage at 108/112.",
+  "confidence": 0.9,
+  "sources": [
+    "practo_sentence_chunks"
+  ],
+  "action_required": false,
+  "escalation_score": 0.0,
+  "follow_up_recommended": false
+}
+
+--------------------------------------------------------------------------------
+[TEST 2: HTTP POST /add-document]
+Request: {"doc_id": "ayurvedic_consultations.txt", "category": "Alternative Medicine", "content": "Practo now facilitates verified Ayurvedic medicine consultations with licensed practitioners across all metropolitan clinics. Patients booking holistic wellness appointments must submit recent pulse diagnosis history during online check-in. All prescribed herbal formulations undergo rigorous purity verification before distribution through partner pharmacies."}
+HTTP Status: 200
+Response Body: {
+  "success": true,
+  "doc_id": "ayurvedic_consultations.txt",
+  "chunks_indexed": 6,
+  "message": "Successfully indexed document 'ayurvedic_consultations.txt' into both ChromaDB collections (6 total chunks)."
+}
+
+--------------------------------------------------------------------------------
+[TEST 3: WEBSOCKET /ws/chat MULTI-TURN & CLIENT DISCONNECT]
+Server Greeting: {"session_id": "ws_0050c996", "type": "connected", "message": "Connected to Practo Support Agent. How can I assist you with clinic policies or appointments today?"}
+
+Client Send (Turn 1): 'Hello! My phone is +91 9876543210, can you check appointment APT-0002?'
+Server Response (Turn 1): {"session_id": "ws_0050c996", "type": "response", "answer": "Appointment APT-0002 has been verified in the Practo clinical records database. The consultation status and specialty details have been confirmed. Please refer to standard clinic guidelines for arrival and check-in procedures."}
+
+Client Send (Turn 2): 'What was the consultation fee for it?'
+Server Response (Turn 2): {"session_id": "ws_0050c996", "type": "response", "answer": "Referencing appointment APT-0002 from our prior discussion: Status is 'Completed', Category: Cardiology, Consultation Fee: INR 1063, Follow-up Required: False, Escalation Score: 0.0933 (Standard Priority)."}
+
+Client initiating intentional disconnect mid-conversation...
+Client closed connection. WebSocketDisconnect captured gracefully on server.
+
+Post-Disconnect Server Health Check: Status 200 ({'status': 'healthy', 'service': 'practo-support-agent', 'mode': 'MOCK_LLM'})
+
+================================================================================
+FASTAPI DEPLOYMENT VERIFICATION: All HTTP & WebSocket tests passed successfully.
+================================================================================

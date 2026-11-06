@@ -1,0 +1,15 @@
+numpy
+crewai
+fastapi
+uvicorn[standard]
+chromadb
+sentence-transformers
+langchain
+langchain-core
+pydantic
+python-dotenv
+autogen-agentchat
+autogen-core
+websockets
+pytest
+httpx

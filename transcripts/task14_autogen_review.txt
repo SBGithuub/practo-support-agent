@@ -1,0 +1,51 @@
+================================================================================
+TASK 14: AUTOGEN 2-AGENT REVIEW STAGE (ROUND ROBIN GROUP CHAT)
+================================================================================
+Team Configuration:
+  - Agent 1: PolicyComplianceReviewer (Analyzes draft against retrieved context)
+  - Agent 2: FinalEditor (Generates structured ReviewVerdict output)
+  - Orchestrator: RoundRobinGroupChat (max_turns=2, custom_message_types=[StructuredMessage[ReviewVerdict]])
+Execution Mode: Deterministic MOCK_LLM (Zero API Keys, Zero Network)
+--------------------------------------------------------------------------------
+
+[SCENARIO 1: DRAFT APPROVED UNCHANGED]
+Input Draft Answer:
+  "According to Practo's official policy documentation: Patients may cancel or reschedule any confirmed appointment without penalty up to two hours before the designated consultation time."
+Retrieved Context:
+  "cancellation_rescheduling.txt: Patients may cancel or reschedule any confirmed appointment without penalty up to two hours before the designated consultation time."
+
+Running Autogen Review Team...
+
+Review Verdict (Structured Pydantic Output):
+{
+  "approved": true,
+  "final_answer": "According to Practo's official policy documentation: Patients may cancel or reschedule any confirmed appointment without penalty up to two hours before the designated consultation time.",
+  "reason": "Draft response verified against retrieved knowledge base. No factual contradictions or ungrounded claims detected."
+}
+Approved: True
+Reason: Draft response verified against retrieved knowledge base. No factual contradictions or ungrounded claims detected.
+Final Answer: According to Practo's official policy documentation: Patients may cancel or reschedule any confirmed appointment without penalty up to two hours before the designated consultation time.
+
+--------------------------------------------------------------------------------
+
+[SCENARIO 2: DELIBERATELY INJECTED UNGROUNDED CLAIM REVISED]
+Input Draft Answer (with injected ungrounded claim):
+  "Practo clinics provide specialty appointments and guarantees 100% free surgery for all walk-in patients."
+Retrieved Context:
+  "consultation_fees.txt: Consultation charges follow a tiered specialty pricing model ranging from INR 500 to 2500."
+
+Running Autogen Review Team...
+
+Review Verdict (Structured Pydantic Output):
+{
+  "approved": false,
+  "final_answer": "Practo clinics provide specialty appointments and guarantees for all walk-in patients.",
+  "reason": "Caught ungrounded promotional/clinical claim not present in verified policy. Revised draft to ensure 100% groundedness."
+}
+Approved: False
+Reason: Caught ungrounded promotional/clinical claim not present in verified policy. Revised draft to ensure 100% groundedness.
+Final Revised Answer: Practo clinics provide specialty appointments and guarantees for all walk-in patients.
+
+================================================================================
+AUTOGEN REVIEW VERIFICATION: Both approval and revision workflows verified successfully.
+================================================================================

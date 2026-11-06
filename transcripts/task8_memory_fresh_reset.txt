@@ -1,0 +1,17 @@
+================================================================================
+TASK 8: FRESH CONVERSATION (STATE ABSENT / RESET DEMONSTRATION)
+Session ID: session_fresh_patient_99
+Expected Behavior: Fresh session has zero prior turns. Anaphoric 'it' cannot resolve.
+================================================================================
+
+[TURN 1 - NEW FRESH SESSION]
+Patient: Is follow-up required for it, and what is its escalation score?
+Agent: Practo clinics operate under standard transparent healthcare policies. Cancellations up to two hours prior are penalty-free, and follow-up visits within seven days receive courtesy discounts. For emergencies, patients should immediately contact emergency hospital triage at 108/112.
+
+[STORED IN-PROCESS LANGCHAIN HISTORY]
+  Message 1 [HumanMessage]: Is follow-up required for it, and what is its escalation score?
+  Message 2 [AIMessage]: Practo clinics operate under standard transparent healthcare policies. Cancellations up to two hours prior are penalty-free, and follow-up visits within seven days receive courtesy discounts. For emergencies, patients should immediately contact emergency hospital triage at 108/112.
+
+================================================================================
+RESET VERIFICATION: Prior session state was completely absent in fresh session.
+================================================================================

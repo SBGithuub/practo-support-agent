@@ -1,0 +1,23 @@
+================================================================================
+TASK 8: MULTI-TURN CONVERSATION MEMORY DEMONSTRATION
+Session ID: session_patient_42
+Framework: LangChain InMemoryChatMessageHistory + RunnableWithMessageHistory
+================================================================================
+
+[TURN 1]
+Patient: Hi, can you please check on my appointment APT-0007?
+Agent: Appointment APT-0007 has been verified in the Practo clinical records database. The consultation status and specialty details have been confirmed. Please refer to standard clinic guidelines for arrival and check-in procedures.
+
+[TURN 2 - CONTEXT CARRIED VIA MEMORY]
+Patient: Is follow-up required for it, and what is its escalation score?
+Agent: Referencing appointment APT-0007 from our prior discussion: Status is 'Completed', Category: Cardiology, Consultation Fee: INR 554, Follow-up Required: True, Escalation Score: 0.8267 (Escalation Recommended).
+
+[STORED IN-PROCESS LANGCHAIN HISTORY]
+  Message 1 [HumanMessage]: Hi, can you please check on my appointment APT-0007?
+  Message 2 [AIMessage]: Appointment APT-0007 has been verified in the Practo clinical records database. The consultation status and specialty details have been confirmed. Please refer to standard clinic guidelines for arrival and check-in procedures.
+  Message 3 [HumanMessage]: Is follow-up required for it, and what is its escalation score?
+  Message 4 [AIMessage]: Referencing appointment APT-0007 from our prior discussion: Status is 'Completed', Category: Cardiology, Consultation Fee: INR 554, Follow-up Required: True, Escalation Score: 0.8267 (Escalation Recommended).
+
+================================================================================
+STATE VERIFICATION: Successfully carried APT-0007 context across turns!
+================================================================================

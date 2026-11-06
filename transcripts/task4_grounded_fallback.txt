@@ -1,0 +1,62 @@
+======================================================================
+TASK 4: GROUNDED GENERATION & CALIBRATED FALLBACK DEMONSTRATION
+Empirical Similarity Fallback Threshold: 0.45
+======================================================================
+
+--- [Q1] ---
+Query: 'What is the penalty for cancelling an appointment late inside the two-hour window?'
+Top Retrieval Similarity : 0.7402
+Threshold Passed         : True
+Fallback Triggered       : False
+Sources Cited            : ['cancellation_rescheduling.txt']
+Answer Output:
+  "According to Practo's official policy documentation (cancellation_rescheduling.txt): Patients may cancel or reschedule any confirmed appointment without penalty up to two hours before the designated consultation time. Additionally, cancellations made inside the two-hour window will incur a late cancellation charge equal to twenty percent of the consultation fee."
+
+--- [Q2] ---
+Query: 'How long do standard diagnostic lab tests like blood counts take to process?'
+Top Retrieval Similarity : 0.7521
+Threshold Passed         : True
+Fallback Triggered       : False
+Sources Cited            : ['lab_test_turnaround.txt']
+Answer Output:
+  "According to Practo's official policy documentation (lab_test_turnaround.txt): Standard diagnostic screenings including complete blood counts, urinalysis, and metabolic panels are processed within four to six hours of sample collection. Additionally, specialized biochemical assays, autoimmune panels, and microbiological cultures require twenty-four to forty-eight hours for comprehensive incubation and pathology verification."
+
+--- [Q3] ---
+Query: 'What discount do I receive if I book a follow-up appointment within 7 days?'
+Top Retrieval Similarity : 0.6860
+Threshold Passed         : True
+Fallback Triggered       : False
+Sources Cited            : ['followup_discounts.txt']
+Answer Output:
+  "According to Practo's official policy documentation (followup_discounts.txt): Patients are entitled to a thirty percent courtesy discount on follow-up consultations when booked with the same physician within seven calendar days of the initial visit. Additionally, after fourteen days from the preceding visit, subsequent consultations are billed at standard full specialty rates."
+
+--- [Q4] ---
+Query: 'How can patients file for reimbursement of outpatient consultation fees?'
+Top Retrieval Similarity : 0.6519
+Threshold Passed         : True
+Fallback Triggered       : False
+Sources Cited            : ['insurance_claims.txt', 'consultation_fees.txt']
+Answer Output:
+  "According to Practo's official policy documentation (consultation_fees.txt, insurance_claims.txt): For standalone outpatient consultations, patients can download stamped digital expense receipts and diagnostic invoices directly from their Practo dashboard for reimbursement filing."
+
+--- [Q5] ---
+Query: 'Are home doctor visits available for bedridden elderly patients?'
+Top Retrieval Similarity : 0.8602
+Threshold Passed         : True
+Fallback Triggered       : False
+Sources Cited            : ['home_visits.txt', 'followup_discounts.txt']
+Answer Output:
+  "According to Practo's official policy documentation (followup_discounts.txt, home_visits.txt): Home healthcare and bedside physician visits are available for bedridden elderly individuals, post-operative orthopedic recovery patients, and immunocompromised individuals unable to commute."
+
+--- [Q6_OOS] ---
+Query: 'What is the proper baking temperature and recipe for chocolate fudge brownies?'
+Top Retrieval Similarity : 0.0811
+Threshold Passed         : False
+Fallback Triggered       : True
+Sources Cited            : []
+Answer Output:
+  "I apologize, but I do not have enough verified information in Practo's official policy documentation to answer your question accurately. Please contact Practo clinic support at support@practo.com or call our patient helpline directly."
+
+======================================================================
+TASK 4 DEMONSTRATION COMPLETED SUCCESSFULLY
+======================================================================

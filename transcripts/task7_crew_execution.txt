@@ -1,0 +1,64 @@
+Using an approximate input token count for model 'mock-practo-agent': assuming one token per four characters because a native token count is unavailable.
+Using an approximate input token count for model 'mock-practo-agent': assuming one token per four characters because a native token count is unavailable.
+Using an approximate input token count for model 'mock-practo-agent': assuming one token per four characters because a native token count is unavailable.
+Using an approximate input token count for model 'mock-practo-agent': assuming one token per four characters because a native token count is unavailable.
+================================================================================
+TASK 7: CREWAI MULTI-AGENT ORCHESTRATION WITH TOOLS VIA .kickoff()
+================================================================================
+Crew Structure:
+  1. Retrieval Agent (Equipped with rag_policy_lookup tool only)
+  2. Lookup Agent (Equipped with check_appointment_status tool only)
+  3. Response Composer Agent (Zero tools - Least Autonomy Principle)
+Execution Mode: Deterministic MOCK_LLM (Zero API Keys, Zero Network)
+--------------------------------------------------------------------------------
+
+[SCENARIO 1: POLICY INQUIRY]
+User Query: What is the cancellation and rescheduling window for appointments?
+Executing CrewAI .kickoff()...
+
+[RESULT 1 - STRUCTURED PYDANTIC OUTPUT]
+{
+  "query": "What is the cancellation and rescheduling window for appointments?",
+  "category": "Clinic Policy",
+  "answer": "Practo clinics operate under standard transparent healthcare policies. Cancellations up to two hours prior are penalty-free, and follow-up visits within seven days receive courtesy discounts. For emergencies, patients should immediately contact emergency hospital triage at 108/112.",
+  "confidence": 0.9,
+  "sources": [
+    "practo_sentence_chunks"
+  ],
+  "action_required": false,
+  "escalation_score": 0.0,
+  "follow_up_recommended": false
+}
+
+Final Composed Answer:
+Practo clinics operate under standard transparent healthcare policies. Cancellations up to two hours prior are penalty-free, and follow-up visits within seven days receive courtesy discounts. For emergencies, patients should immediately contact emergency hospital triage at 108/112.
+
+--------------------------------------------------------------------------------
+
+[SCENARIO 2: APPOINTMENT STATUS & ESCALATION LOOKUP]
+User Query: Can you please check the status and fee for appointment APT-0007?
+Executing CrewAI .kickoff()...
+
+[RESULT 2 - STRUCTURED PYDANTIC OUTPUT]
+{
+  "query": "Can you please check the status and fee for appointment APT-0007?",
+  "category": "Appointment Cardiology",
+  "answer": "Appointment APT-0007 has been verified in the Practo clinical records database. The consultation status and specialty details have been confirmed. Please refer to standard clinic guidelines for arrival and check-in procedures.",
+  "confidence": 0.95,
+  "sources": [
+    "APT-0007"
+  ],
+  "action_required": true,
+  "escalation_score": 0.8267,
+  "follow_up_recommended": true
+}
+
+Final Composed Answer:
+Appointment APT-0007 has been verified in the Practo clinical records database. The consultation status and specialty details have been confirmed. Please refer to standard clinic guidelines for arrival and check-in procedures.
+
+================================================================================
+VERIFICATION SUMMARY:
+  - Both rag_policy_lookup and check_appointment_status tools successfully invoked.
+  - Both responses validated against declared Pydantic SupportResponse schema (Task 9).
+  - Sequential process completed via .kickoff() with deterministic outputs.
+================================================================================

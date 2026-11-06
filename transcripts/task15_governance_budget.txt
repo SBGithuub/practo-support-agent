@@ -1,0 +1,42 @@
+================================================================================
+TASK 15: FOUR-LAYER AI GOVERNANCE FRAMEWORK DEMONSTRATION
+================================================================================
+
+[1. APPLICATION LAYER: PRINCIPLE OF LEAST AUTONOMY]
+Verifying crew agent tool assignments:
+  - Retrieval Agent Tools: ['rag_policy_lookup']
+  - Lookup Agent Tools: ['check_appointment_status']
+  - Composer Agent Tools: []
+Standard Crew Least Autonomy Check: PASSED (True)
+
+Simulating Unauthorized Tool Assignment (Attaching status tool to Retrieval Agent):
+BLOCKED BY GOVERNANCE GUARD: Security Violation: Retrieval Agent possesses unauthorized access to appointment records.
+Verdict: PASS - Unauthorized database access prevented by Application Layer guard.
+
+Least Autonomy Architectural Explanation:
+  Under the principle of least autonomy, agents are granted only the minimum tool capabilities   essential to their narrow role. The Lookup Agent is strictly restricted to read-only record lookups,   the Retrieval Agent has access only to public clinic policy documents, and the Response Composer has   strictly zero tool-execution rights. This prevents privilege escalation, cross-contamination, and   ensures that an adversarial prompt cannot manipulate a general-purpose agent into querying confidential records.
+
+--------------------------------------------------------------------------------
+
+[2. SYSTEM RISK CLASSIFICATION]
+Risk Tier Assigned: High
+Governance Framework: NIST AI RMF / EU AI Act 3-Tier Classification
+
+One-Paragraph Justification:
+  The Practo Domain Support Agent operates in the healthcare domain, interacting with patient appointment records, specialty consultation fees, and clinical emergency protocols. Systems managing medical data, patient scheduling, and triage guidance are classified as High Risk because inaccurate triage advice or improper handling of clinical follow-up states can directly jeopardize patient well-being and violate statutory health data regulations. To mitigate these risks, the architecture enforces mandatory PII masking, least-autonomy tool segregation, an independent Autogen policy review stage, and hard runtime budget caps.
+
+--------------------------------------------------------------------------------
+
+[3. RUNTIME LAYER: TOKEN AND COST BUDGET CAP]
+Case A (Standard Query): 'What is the cancellation window for appointments?'
+  Tokens Estimated: 12 / 300
+  Cost Estimated: $0.000024
+  Governance Status: APPROVED
+
+Case B (Deliberately Oversized Query): 2730 characters
+REJECTED BY RUNTIME BUDGET CAP: Governance Budget Violation: Incoming request of 682 tokens (2730 characters) exceeds the maximum per-request runtime cap of 300 tokens. Estimated cost $0.00136 rejected. Please condense your inquiry.
+Verdict: PASS - Oversized request safely halted before consuming LLM/compute resources.
+
+================================================================================
+AI GOVERNANCE VERIFICATION: Least autonomy, risk tier, and budget cap successfully validated.
+================================================================================

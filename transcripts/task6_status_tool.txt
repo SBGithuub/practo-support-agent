@@ -1,0 +1,54 @@
+======================================================================
+TASK 6: APPOINTMENT STATUS LOOKUP AND CLINICAL ESCALATION SCORING
+======================================================================
+Escalation Formula: escalation_score = (0.60 * follow_up_flag) + (0.40 * (days_since_created / 30.0))
+Escalation Threshold: 0.65
+Clinical Justification:
+  - follow_up_flag (60% weight) represents critical post-visit clinical care requirements.
+  - days_since_created / 30.0 (40% weight) represents normalized wait time latency.
+  - Any record with follow_up=True waiting > 3.75 days exceeds the 0.65 threshold (80th percentile risk).
+  - Records with follow_up=False cannot exceed 0.40, preventing false positive alarms.
+----------------------------------------------------------------------
+
+Total Dataset Records: 50
+Total Escalated Records: 11 (22.0%)
+Min Score: 0.0133, Max Score: 0.9600, Mean Score: 0.3459
+
+--- Individual Lookup Test Cases ---
+
+Lookup for: APT-0001
+  Found: True
+  Category: General Medicine
+  Status: Scheduled
+  Fee (INR): 1809
+  Days Since Created: 3
+  Follow-up Required: True
+  Escalation Score: 0.64
+  Escalation Recommended: False
+  Message: Appointment APT-0001 (General Medicine) is currently 'Scheduled'. Consultation fee: INR 1809. Escalation Score: 0.64 (Standard Priority).
+
+Lookup for: APT-0002
+  Found: True
+  Category: Cardiology
+  Status: Completed
+  Fee (INR): 1063
+  Days Since Created: 7
+  Follow-up Required: False
+  Escalation Score: 0.0933
+  Escalation Recommended: False
+  Message: Appointment APT-0002 (Cardiology) is currently 'Completed'. Consultation fee: INR 1063. Escalation Score: 0.0933 (Standard Priority).
+
+Lookup for: APT-0007
+  Found: True
+  Category: Cardiology
+  Status: Completed
+  Fee (INR): 554
+  Days Since Created: 17
+  Follow-up Required: True
+  Escalation Score: 0.8267
+  Escalation Recommended: True
+  Message: Appointment APT-0007 (Cardiology) is currently 'Completed'. Consultation fee: INR 554. Escalation Score: 0.8267 (Escalation Required).
+
+Lookup for: APT-9999
+  Found: False
+  Message: Appointment record 'APT-9999' was not found in Practo database.

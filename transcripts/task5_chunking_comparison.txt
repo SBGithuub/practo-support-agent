@@ -1,0 +1,104 @@
+=================================================================
+TASK 5: CHUNKING STRATEGY EVALUATION & COMPARISON
+=================================================================
+
+Evaluating Collection: 'practo_sentence_chunks' (top_k=3)
+-----------------------------------------------------------------
+[Q1] Query: 'What is the penalty for cancelling an appointment late?'
+     Ground Truth Docs (G)  : ['cancellation_rescheduling.txt']
+     Retrieved Chunks (k=3): ['cancellation_rescheduling.txt', 'cancellation_rescheduling.txt', 'followup_discounts.txt']
+     Deduped Docs (R)       : ['cancellation_rescheduling.txt', 'followup_discounts.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/2 = 0.5000 (50.0%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+[Q2] Query: 'How fast are standard blood lab test results processed?'
+     Ground Truth Docs (G)  : ['lab_test_turnaround.txt']
+     Retrieved Chunks (k=3): ['lab_test_turnaround.txt', 'lab_test_turnaround.txt', 'lab_test_turnaround.txt']
+     Deduped Docs (R)       : ['lab_test_turnaround.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/1 = 1.0000 (100.0%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+[Q3] Query: 'Is there a discount on follow-up doctor visits within 7 days?'
+     Ground Truth Docs (G)  : ['followup_discounts.txt']
+     Retrieved Chunks (k=3): ['followup_discounts.txt', 'followup_discounts.txt', 'appointment_booking.txt']
+     Deduped Docs (R)       : ['followup_discounts.txt', 'appointment_booking.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/2 = 0.5000 (50.0%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+[Q4] Query: 'How does cashless health insurance work at network hospitals?'
+     Ground Truth Docs (G)  : ['insurance_claims.txt']
+     Retrieved Chunks (k=3): ['insurance_claims.txt', 'cancellation_rescheduling.txt', 'telemedicine_eligibility.txt']
+     Deduped Docs (R)       : ['insurance_claims.txt', 'cancellation_rescheduling.txt', 'telemedicine_eligibility.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/3 = 0.3333 (33.3%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+[Q5] Query: 'Are home healthcare visits available for bedridden elderly patients?'
+     Ground Truth Docs (G)  : ['home_visits.txt']
+     Retrieved Chunks (k=3): ['home_visits.txt', 'home_visits.txt', 'prescription_refills.txt']
+     Deduped Docs (R)       : ['home_visits.txt', 'prescription_refills.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/2 = 0.5000 (50.0%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+Macro Average Precision : 0.5667 (56.67%)
+Macro Average Recall    : 1.0000 (100.00%)
+Macro F1 Score          : 0.7234
+
+Evaluating Collection: 'practo_fixed_chunks' (top_k=3)
+-----------------------------------------------------------------
+[Q1] Query: 'What is the penalty for cancelling an appointment late?'
+     Ground Truth Docs (G)  : ['cancellation_rescheduling.txt']
+     Retrieved Chunks (k=3): ['cancellation_rescheduling.txt', 'cancellation_rescheduling.txt', 'followup_discounts.txt']
+     Deduped Docs (R)       : ['cancellation_rescheduling.txt', 'followup_discounts.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/2 = 0.5000 (50.0%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+[Q2] Query: 'How fast are standard blood lab test results processed?'
+     Ground Truth Docs (G)  : ['lab_test_turnaround.txt']
+     Retrieved Chunks (k=3): ['lab_test_turnaround.txt', 'lab_test_turnaround.txt', 'appointment_booking.txt']
+     Deduped Docs (R)       : ['lab_test_turnaround.txt', 'appointment_booking.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/2 = 0.5000 (50.0%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+[Q3] Query: 'Is there a discount on follow-up doctor visits within 7 days?'
+     Ground Truth Docs (G)  : ['followup_discounts.txt']
+     Retrieved Chunks (k=3): ['followup_discounts.txt', 'followup_discounts.txt', 'consultation_fees.txt']
+     Deduped Docs (R)       : ['followup_discounts.txt', 'consultation_fees.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/2 = 0.5000 (50.0%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+[Q4] Query: 'How does cashless health insurance work at network hospitals?'
+     Ground Truth Docs (G)  : ['insurance_claims.txt']
+     Retrieved Chunks (k=3): ['insurance_claims.txt', 'cancellation_rescheduling.txt', 'patient_privacy.txt']
+     Deduped Docs (R)       : ['insurance_claims.txt', 'cancellation_rescheduling.txt', 'patient_privacy.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/3 = 0.3333 (33.3%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+[Q5] Query: 'Are home healthcare visits available for bedridden elderly patients?'
+     Ground Truth Docs (G)  : ['home_visits.txt']
+     Retrieved Chunks (k=3): ['home_visits.txt', 'home_visits.txt', 'prescription_refills.txt']
+     Deduped Docs (R)       : ['home_visits.txt', 'prescription_refills.txt']
+     True Positives (TP)    : 1
+     Arithmetic Precision   : 1/2 = 0.5000 (50.0%)
+     Arithmetic Recall      : 1/1 = 1.0000 (100.0%)
+
+Macro Average Precision : 0.4667 (46.67%)
+Macro Average Recall    : 1.0000 (100.00%)
+Macro F1 Score          : 0.6364
+
+=================================================================
+FINAL RECOMMENDATION & COMPARATIVE ANALYSIS
+=================================================================
+Sentence-Based Chunking : Precision = 56.67%, Recall = 100.00%, F1 = 0.7234
+Fixed-Size Chunking     : Precision = 46.67%, Recall = 100.00%, F1 = 0.6364
+
+Recommendation:
+I recommend deploying the Sentence-Based Chunking strategy for production Practo support. Sentence-based chunking achieved higher retrieval precision (56.67% vs 46.67%) while maintaining perfect 100% document recall (100.00%). Because healthcare clinic policies are structured as discrete atomic rules (such as cancellation windows or fee schedules), sentence boundaries cleanly encapsulate single policy provisions without pulling in overlapping text from neighboring clauses.
