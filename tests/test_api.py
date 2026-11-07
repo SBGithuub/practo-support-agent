@@ -17,6 +17,16 @@ def test_health_check():
     assert resp.status_code == 200
     assert resp.json()["status"] == "healthy"
 
+def test_browser_chat_ui():
+    resp_root = client.get("/")
+    assert resp_root.status_code == 200
+    assert "Practo Support Agent" in resp_root.text
+    assert "ws/chat" in resp_root.text
+
+    resp_chat = client.get("/chat")
+    assert resp_chat.status_code == 200
+    assert "Practo Support Agent" in resp_chat.text
+
 def test_api_ask_policy():
     resp = client.post("/ask", json={"query": "What is the cancellation window for appointments?"})
     assert resp.status_code == 200

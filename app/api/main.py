@@ -9,6 +9,7 @@ import uuid
 import asyncio
 from typing import Dict, Any, Optional
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
 from app.agents.schemas import SupportResponse
@@ -47,6 +48,246 @@ def _pipeline_adapter(query: str, history_context: str) -> str:
     return res.answer
 
 session_manager = ConversationalSessionManager(_pipeline_adapter)
+
+def get_browser_chat_html() -> str:
+    """Returns self-contained responsive HTML for real-time WebSocket chat in browser."""
+    return """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practo Support Agent | WebSocket Live Chat</title>
+  <style>
+    :root {
+      --primary: #28328c;
+      --primary-dark: #1b2559;
+      --accent: #14bef0;
+      --bg: #f4f6fa;
+      --card-bg: #ffffff;
+      --text: #1d2129;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; height: 100vh; }
+    header { background: var(--primary-dark); color: #fff; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .logo-container { display: flex; align-items: center; gap: 12px; }
+    .logo-badge { background: var(--accent); color: #fff; font-weight: 800; padding: 5px 10px; border-radius: 6px; font-size: 13px; letter-spacing: 0.5px; }
+    .title-group h1 { font-size: 17px; font-weight: 600; }
+    .title-group p { font-size: 11px; color: #94a3b8; }
+    .status-group { display: flex; align-items: center; gap: 10px; }
+    .status-badge { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 20px; background: rgba(255,255,255,0.1); }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--danger); transition: all 0.3s; }
+    .status-dot.connected { background: var(--success); box-shadow: 0 0 8px var(--success); }
+    .btn-action { padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #fff; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .btn-action:hover { background: rgba(255,255,255,0.2); }
+    main { flex: 1; display: flex; flex-direction: column; max-width: 960px; width: 100%; margin: 0 auto; padding: 16px; overflow: hidden; }
+    .suggestions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
+    .suggestions span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .chip { background: #fff; border: 1px solid var(--border); padding: 6px 12px; border-radius: 16px; font-size: 12px; color: var(--primary); cursor: pointer; transition: all 0.2s; }
+    .chip:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-1px); }
+    .chat-window { flex: 1; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+    .message { display: flex; flex-direction: column; max-width: 78%; line-height: 1.5; font-size: 14px; }
+    .message.user { align-self: flex-end; }
+    .message.agent { align-self: flex-start; }
+    .message.system { align-self: center; max-width: 90%; font-size: 12px; color: var(--text-muted); background: #f1f5f9; padding: 6px 12px; border-radius: 12px; text-align: center; }
+    .bubble { padding: 12px 16px; border-radius: 12px; word-break: break-word; }
+    .message.user .bubble { background: var(--primary); color: #fff; border-bottom-right-radius: 2px; }
+    .message.agent .bubble { background: #f8fafc; border: 1px solid var(--border); color: var(--text); border-bottom-left-radius: 2px; }
+    .msg-meta { font-size: 11px; margin-top: 4px; color: var(--text-muted); }
+    .message.user .msg-meta { text-align: right; }
+    .typing-indicator { display: none; align-self: flex-start; background: #f8fafc; border: 1px solid var(--border); padding: 10px 14px; border-radius: 12px; font-size: 12px; color: var(--text-muted); }
+    .input-bar { margin-top: 12px; display: flex; gap: 10px; }
+    .input-bar input { flex: 1; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); font-size: 14px; outline: none; transition: border-color 0.2s; }
+    .input-bar input:focus { border-color: var(--primary); }
+    .input-bar button { padding: 12px 24px; border-radius: 8px; border: none; background: var(--primary); color: #fff; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .input-bar button:hover { background: var(--primary-dark); }
+    .input-bar button:disabled { background: #cbd5e1; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <div class="logo-badge">practo</div>
+      <div class="title-group">
+        <h1>Practo Support Agent</h1>
+        <p>Live WebSocket Conversational Session (Task 11)</p>
+      </div>
+    </div>
+    <div class="status-group">
+      <div class="status-badge">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Connecting...</span>
+      </div>
+      <button class="btn-action" id="toggleConnectBtn" onclick="toggleConnection()">Disconnect</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="suggestions">
+      <span>Quick Inquiries:</span>
+      <button class="chip" onclick="sendQuickPrompt('What is the cancellation window for appointments?')">Cancellation Policy</button>
+      <button class="chip" onclick="sendQuickPrompt('Check status for appointment APT-0007')">Check APT-0007</button>
+      <button class="chip" onclick="sendQuickPrompt('Is follow-up required for it, and what is its escalation score?')">Follow-up for it? (Memory)</button>
+      <button class="chip" onclick="sendQuickPrompt('What is the emergency visit protocol if I have sudden chest pain?')">Emergency Protocol</button>
+      <button class="chip" onclick="sendQuickPrompt('My contact is +91 9876543210. Check APT-0001 status')">PII Masking Test</button>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+      <!-- Messages appear here -->
+    </div>
+
+    <div class="typing-indicator" id="typingIndicator">
+      Practo Agent is formulating verified response...
+    </div>
+
+    <form class="input-bar" id="chatForm" onsubmit="handleSend(event)">
+      <input type="text" id="userInput" placeholder="Type a clinic policy question or appointment ID (e.g. APT-0001)..." autocomplete="off" />
+      <button type="submit" id="sendBtn">Send</button>
+    </form>
+  </main>
+
+  <script>
+    let ws = null;
+    let isExplicitlyClosed = false;
+    const chatWindow = document.getElementById("chatWindow");
+    const userInput = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const statusDot = document.getElementById("statusDot");
+    const statusText = document.getElementById("statusText");
+    const toggleConnectBtn = document.getElementById("toggleConnectBtn");
+    const typingIndicator = document.getElementById("typingIndicator");
+
+    function connectWebSocket() {
+      isExplicitlyClosed = false;
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      const wsUrl = `${protocol}//${window.location.host}/ws/chat`;
+
+      statusDot.className = "status-dot";
+      statusText.textContent = "Connecting...";
+      toggleConnectBtn.textContent = "Disconnect";
+
+      ws = new WebSocket(wsUrl);
+
+      ws.onopen = function() {
+        statusDot.className = "status-dot connected";
+        statusText.textContent = "Connected (ws/chat)";
+        sendBtn.disabled = false;
+      };
+
+      ws.onmessage = function(event) {
+        typingIndicator.style.display = "none";
+        try {
+          const data = JSON.parse(event.data);
+          if (data.type === "connected") {
+            appendSystemMessage(data.message + " (Session ID: " + data.session_id + ")");
+          } else if (data.type === "response") {
+            appendAgentMessage(data.answer);
+          }
+        } catch (e) {
+          appendAgentMessage(event.data);
+        }
+      };
+
+      ws.onclose = function() {
+        statusDot.className = "status-dot";
+        statusText.textContent = "Disconnected";
+        sendBtn.disabled = true;
+        toggleConnectBtn.textContent = "Reconnect";
+        typingIndicator.style.display = "none";
+        if (!isExplicitlyClosed) {
+          appendSystemMessage("Connection closed. Click 'Reconnect' to resume session.");
+        }
+      };
+
+      ws.onerror = function() {
+        statusDot.className = "status-dot";
+        statusText.textContent = "Connection Error";
+        typingIndicator.style.display = "none";
+      };
+    }
+
+    function toggleConnection() {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        isExplicitlyClosed = true;
+        ws.close();
+        appendSystemMessage("Client intentionally disconnected mid-conversation. Server remains healthy (Task 11).");
+      } else {
+        connectWebSocket();
+      }
+    }
+
+    function appendUserMessage(text) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "message user";
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      msgDiv.innerHTML = `<div class="bubble">${escapeHtml(text)}</div><div class="msg-meta">Patient · ${timeStr}</div>`;
+      chatWindow.appendChild(msgDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function appendAgentMessage(text) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "message agent";
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      msgDiv.innerHTML = `<div class="bubble">${escapeHtml(text)}</div><div class="msg-meta">Practo Support Agent · ${timeStr}</div>`;
+      chatWindow.appendChild(msgDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function appendSystemMessage(text) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "message system";
+      msgDiv.textContent = text;
+      chatWindow.appendChild(msgDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function escapeHtml(string) {
+      const entityMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+      return String(string).replace(/[&<>"']/g, function (s) { return entityMap[s]; });
+    }
+
+    function handleSend(event) {
+      event.preventDefault();
+      const text = userInput.value.trim();
+      if (!text || !ws || ws.readyState !== WebSocket.OPEN) return;
+
+      appendUserMessage(text);
+      ws.send(text);
+      userInput.value = "";
+      typingIndicator.style.display = "block";
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function sendQuickPrompt(promptText) {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        connectWebSocket();
+        setTimeout(() => {
+          if (ws && ws.readyState === WebSocket.OPEN) {
+            userInput.value = promptText;
+            document.getElementById("chatForm").dispatchEvent(new Event("submit"));
+          }
+        }, 500);
+        return;
+      }
+      userInput.value = promptText;
+      document.getElementById("chatForm").dispatchEvent(new Event("submit"));
+    }
+
+    // Auto-connect on load
+    window.addEventListener("DOMContentLoaded", connectWebSocket);
+  </script>
+</body>
+</html>"""
+
+@app.get("/", response_class=HTMLResponse)
+@app.get("/chat", response_class=HTMLResponse)
+def browser_chat_ui():
+    """Serves the interactive browser-based WebSocket chat client."""
+    return HTMLResponse(content=get_browser_chat_html())
 
 @app.get("/health")
 def health_check():
